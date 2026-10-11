@@ -1,6 +1,7 @@
 // Phan Thị Hải Yến
 // 202419124
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class LabRoom {
@@ -10,6 +11,9 @@ public class LabRoom {
     private List<Device> devices;
 
     public LabRoom(String roomId, String roomName, int capacity) {
+        if (roomId == null || roomId.trim().isEmpty()) throw new IllegalArgumentException("Ma phong khong duoc rong.");
+        if (capacity <= 0) throw new IllegalArgumentException("Suc chua cua phong phai lon hon 0.");
+        
         this.roomId = roomId;
         this.roomName = roomName;
         this.capacity = capacity;
@@ -18,21 +22,25 @@ public class LabRoom {
 
     public void addDevice(Device device) {
         if (device == null) {
-            throw new IllegalArgumentException("Không thể thêm thiết bị null.");
+            throw new IllegalArgumentException("Khong the them thiet bi null.");
         }
-        if (devices.size() >= capacity) {
-            System.out.println("Lỗi: Phòng " + roomName + " đã đầy.");
-            return;
-        }
-        // Kiểm tra trùng mã thiết bị
+        
+        // Kiem tra trung ma truoc
         for (Device d : devices) {
             if (d.getId().equals(device.getId())) {
-                System.out.println("Lỗi: Mã thiết bị " + device.getId() + " đã tồn tại trong phòng.");
+                System.out.println("Loi: Ma thiet bi " + device.getId() + " da ton tai trong phong " + roomName);
                 return;
             }
         }
+        
+        // Sau do moi kiem tra suc chua
+        if (devices.size() >= capacity) {
+            System.out.println("Loi: Phong " + roomName + " da day, khong the them thiet bi moi.");
+            return;
+        }
+        
         devices.add(device);
-        System.out.println("Đã thêm thành công: " + device.getName());
+        System.out.println("Da them thanh cong: " + device.getName() + " vao " + roomName);
     }
 
     public boolean removeDevice(String deviceId) {
@@ -53,11 +61,10 @@ public class LabRoom {
         return null;
     }
 
-    // Áp dụng tính đa hình ở đây
     public double calculateAnnualMaintenanceCost() {
         double totalCost = 0;
         for (Device d : devices) {
-            totalCost += d.calculateAnnualMaintenanceCost(); // Đa hình
+            totalCost += d.calculateAnnualMaintenanceCost(); 
         }
         return totalCost;
     }
@@ -73,13 +80,14 @@ public class LabRoom {
     }
 
     public void printDevices() {
-        System.out.println("=== Danh sách thiết bị phòng " + roomName + " ===");
+        System.out.println("=== Danh sach thiet bi phong " + roomName + " ===");
         for (Device d : devices) {
             System.out.println(d.toString());
         }
     }
     
+    // Tra ve danh sach chi doc (Read-only list) de bao ve tinh dong goi
     public List<Device> getDevices() {
-        return devices;
+        return Collections.unmodifiableList(devices);
     }
 }

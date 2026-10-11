@@ -20,22 +20,22 @@ public class NetworkPrinter extends Printer implements INetworkable {
     @Override
     public void connect(String ipAddress) {
         if (ipAddress == null || ipAddress.trim().isEmpty()) {
-            System.out.println("Lỗi: Địa chỉ IP không được rỗng!");
+            System.out.println("Loi: Dia chi IP khong duoc rong!");
             return;
         }
         if (this.isConnected) {
-            System.out.println("Lỗi: Máy in mạng " + getName() + " đang được kết nối mạng, không thể kết nối lại!");
+            System.out.println("Loi: May in mang " + getName() + " dang ket noi mang!");
             return;
         }
         this.ipAddress = ipAddress;
         this.isConnected = true;
-        System.out.println("Máy in mạng " + getName() + " đã kết nối thành công tới IP: " + ipAddress);
+        System.out.println("May in mang " + getName() + " da ket noi IP: " + ipAddress);
     }
 
     @Override
     public void disconnect() {
         this.isConnected = false;
         this.ipAddress = null;
-        System.out.println("Máy in mạng " + getName() + " đã ngắt kết nối mạng.");
+        System.out.println("May in mang " + getName() + " da ngat ket noi mang.");
     }
 }
