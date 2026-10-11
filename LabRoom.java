@@ -25,7 +25,7 @@ public class LabRoom {
             throw new IllegalArgumentException("Khong the them thiet bi null.");
         }
         
-        // Kiem tra trung ma truoc
+        // Kiem tra trung ma
         for (Device d : devices) {
             if (d.getId().equals(device.getId())) {
                 System.out.println("Loi: Ma thiet bi " + device.getId() + " da ton tai trong phong " + roomName);
@@ -33,7 +33,7 @@ public class LabRoom {
             }
         }
         
-        // Sau do moi kiem tra suc chua
+        // \Kiem tra suc chua
         if (devices.size() >= capacity) {
             System.out.println("Loi: Phong " + roomName + " da day, khong the them thiet bi moi.");
             return;
